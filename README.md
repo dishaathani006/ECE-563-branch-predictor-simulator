@@ -21,11 +21,30 @@ instruction traces to analyze the accuracy vs. cost trade-offs between them.
 2-bit saturating counters, global history, aliasing, predictor correlation,
 misprediction rate.
 
-## Build & Run
+## Build
 
 make
-./predictor <config> <trace_file>
 
+Produces the `sim` binary. Use `make clean` to remove build artifacts.
+
+## Run
+
+./sim bimodal <M2> <tracefile>
+./sim gshare <M1> <N> <tracefile>
+./sim hybrid <K> <M1> <N> <M2> <tracefile>
+
+
+Parameters:
+- M1: PC index bits for the gshare table
+- M2: PC index bits for the bimodal table
+- N:  global history register bits (gshare)
+- K:  PC index bits for the chooser table (hybrid)
+
+Examples:
+
+./sim bimodal 6 gcc_trace.txt
+./sim gshare 9 3 gcc_trace.txt
+./sim hybrid 8 14 10 5 gcc_trace.txt
 
 ## Results
 Compared misprediction rates across the three schemes to analyze how history
